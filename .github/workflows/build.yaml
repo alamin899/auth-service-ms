@@ -22,6 +22,7 @@ jobs:
           sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ secrets.DB_PASSWORD }}/' .env
           sed -i 's/^DB_NAME=.*/DB_NAME=${{ secrets.DB_NAME }}/' .env
           sed -i 's/^PORT=.*/PORT=${{ secrets.RUNNING_PORT }}/' .env
+          sed -i 's/^DB_PORT=.*/DB_PORT=${{ secrets.DB_PORT }}/' .env
       
 
       - name: Configure AWS credentials
