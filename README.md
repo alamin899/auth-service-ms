@@ -12,7 +12,7 @@ This guide explains how to authenticate with AWS ECR, pull the Docker image for 
 
 ---
 
-## 🔐 Step 1: Authenticate Docker to AWS ECR
+## 🔐 Step 1: Authenticate Docker to AWS ECR 
 
 Run the following command to authenticate your Docker CLI with the ECR registry:
 
