@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.post('/login',loginValidator,validateMiddleware, login);
 router.post('/register',registerValidator,validateMiddleware, register);
-router.get('/verify',checkAuthorizationHeader,validateMiddleware, verifyTokenController);
+router.get('/verify-token',checkAuthorizationHeader,validateMiddleware, verifyTokenController);
 
 export default router;
