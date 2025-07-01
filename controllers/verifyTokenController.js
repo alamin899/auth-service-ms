@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const verifyTokenController = (req, res) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     const authHeader = req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
