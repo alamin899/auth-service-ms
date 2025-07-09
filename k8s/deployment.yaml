@@ -13,7 +13,7 @@ spec:
         app: auth-ms
     spec:
       imagePullSecrets:
-        - name: regcred
+        - name: aws-credentials
       containers:
         - name: auth-ms
           image: 127214175530.dkr.ecr.ap-southeast-1.amazonaws.com/ms/auth-service:latest
