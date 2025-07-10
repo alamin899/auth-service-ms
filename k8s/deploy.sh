@@ -5,9 +5,6 @@ set -e
 # === Configuration ===
 AWS_REGION="ap-southeast-1"
 AWS_ACCOUNT_ID="127214175530"
-NAMESPACE="microservices"
-REPO_NAME="ms/product-service"
-IMAGE_TAG="latest"
 
 # === Step 1: AWS ECR Login ===
 echo "🔐 Logging in to ECR..."
