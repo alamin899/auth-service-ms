@@ -19,3 +19,8 @@ spec:
           image: 127214175530.dkr.ecr.ap-southeast-1.amazonaws.com/ms/auth-service:latest
           ports:
             - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: auth-ms-config
+            - secretRef:
+                name: auth-ms-secret

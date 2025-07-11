@@ -15,7 +15,7 @@ jobs:
 
       - name: Set up .env file from example and secrets
         run: |
-          cp .env.example .env
+          cp .env.example .env.local
           sed -i 's/^JWT_SECRET=.*/JWT_SECRET=${{ secrets.JWT_SECRET }}/' .env
           sed -i 's/^DB_HOST=.*/DB_HOST=${{ secrets.DB_HOST }}/' .env
           sed -i 's/^DB_USER=.*/DB_USER=${{ secrets.DB_USER }}/' .env
