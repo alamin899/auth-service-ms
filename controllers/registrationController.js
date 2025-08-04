@@ -4,10 +4,13 @@ import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
     const { email, password } = req.body;
+    let connection;
 
     try {
+        connection = await pool.getConnection();
+
         // Check if email already exists
-        const [existingUser] = await pool.execute('SELECT id FROM users WHERE email = ?', [email]);
+        const [existingUser] = await connection.execute('SELECT id FROM users WHERE email = ?', [email]);
         if (existingUser.length > 0) {
             return res.status(400).json({
                 message: 'Email already registered',
@@ -20,7 +23,7 @@ export const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Insert new user
-        const [result] = await pool.execute(
+        const [result] = await connection.execute(
             'INSERT INTO users (email, password) VALUES (?, ?)',
             [email, hashedPassword]
         );
@@ -47,6 +50,7 @@ export const register = async (req, res) => {
             data: null,
             error: err.message
         });
+    } finally {
+        if (connection) connection.release();  // release connection back to pool
     }
-
 };

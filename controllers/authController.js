@@ -4,8 +4,12 @@ import jwt from 'jsonwebtoken';
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
+    let connection;
+
     try {
-        const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
+        connection = await pool.getConnection();
+
+        const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
             return res.status(401).json({
@@ -47,6 +51,7 @@ export const login = async (req, res) => {
             data: null,
             error: err.message
         });
+    } finally {
+        if (connection) connection.release();
     }
-
 };
