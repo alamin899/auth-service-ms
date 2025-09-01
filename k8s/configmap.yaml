@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: ${AUTH_MS_NAME}-config
 data:
-  PORT: ${CONTAINER_RUNNING_PORT}
-  DB_HOST: ${DB_HOST}
-  DB_PORT: ${DB_PORT}
-  DB_USER: ${DB_USER}
-  DB_NAME: ${DB_NAME}
+  PORT: "${CONTAINER_RUNNING_PORT}"   # Wrap numbers in quotes to ensure they're treated as strings
+  DB_HOST: "${DB_HOST}"               # Ensure DB_HOST is treated as a string
+  DB_PORT: "${DB_PORT}"               # Wrap DB_PORT in quotes
+  DB_USER: "${DB_USER}"               # Ensure DB_USER is treated as a string
+  DB_NAME: "${DB_NAME}"               # Ensure DB_NAME is treated as a string

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ${AUTH_MS_NAME}
 spec:
-  replicas: ${REPLICA_COUNT}
+  replicas: "${REPLICA_COUNT}"
   selector:
     matchLabels:
       app: ${AUTH_MS_NAME}
@@ -16,7 +16,7 @@ spec:
         - name: ${AUTH_MS_NAME}
           image: ${DOCKER_IMAGE_URI}:${IMAGE_TAG}
           ports:
-            - containerPort: ${CONTAINER_RUNNING_PORT}
+            - containerPort: "${CONTAINER_RUNNING_PORT}"
           envFrom:
             - configMapRef:
                 name: ${AUTH_MS_NAME}-config
