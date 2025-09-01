@@ -16,7 +16,7 @@ spec:
         - name: ${AUTH_MS_NAME}
           image: ${DOCKER_IMAGE_URI}:${IMAGE_TAG}
           ports:
-            - containerPort: "${CONTAINER_RUNNING_PORT}"
+            - containerPort: ${CONTAINER_RUNNING_PORT}
           envFrom:
             - configMapRef:
                 name: ${AUTH_MS_NAME}-config

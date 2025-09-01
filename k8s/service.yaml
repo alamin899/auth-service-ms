@@ -8,6 +8,6 @@ spec:
     app: ${AUTH_MS_NAME}
   ports:
     - protocol: TCP
-      port: "${KUBERNETES_SERVICE_PORT}"        # Service port
-      targetPort: "${CONTAINER_RUNNING_PORT}"  # Container port
-      nodePort: "${KUBERNETES_NODE_PORT}" # Exposed port on minikube node (can be between 30000-32767)
+      port: ${KUBERNETES_SERVICE_PORT}        # Service port
+      targetPort: ${CONTAINER_RUNNING_PORT}  # Container port
+      nodePort: ${KUBERNETES_NODE_PORT} # Exposed port on minikube node (can be between 30000-32767)
