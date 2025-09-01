@@ -1,26 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-ms
+  name: ${AUTH_MS_NAME}
 spec:
-  replicas: 2
+  replicas: ${REPLICA_COUNT}
   selector:
     matchLabels:
-      app: auth-ms
+      app: ${AUTH_MS_NAME}
   template:
     metadata:
       labels:
-        app: auth-ms
+        app: ${AUTH_MS_NAME}
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
-        - name: auth-ms
-          image: 127214175530.dkr.ecr.ap-southeast-1.amazonaws.com/ms/auth-service:latest
+        - name: ${AUTH_MS_NAME}
+          image: ${DOCKER_IMAGE_URI}:${IMAGE_TAG}
           ports:
-            - containerPort: 3000
+            - containerPort: ${CONTAINER_RUNNING_PORT}
           envFrom:
             - configMapRef:
-                name: auth-ms-config
+                name: ${AUTH_MS_NAME}-config
             - secretRef:
-                name: auth-ms-secret
+                name: ${AUTH_MS_NAME}-secret
