@@ -78,27 +78,25 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ vars.KUBECONFIG }}" > $HOME/.kube/config
 
-      # - name: Configure Kubernetes to Pull from Private ECR
-      #   run: |
-      #     kubectl create secret docker-registry regcred \
-      #     --docker-server=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com \
-      #     --docker-username=AWS \
-      #     --docker-password=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
-      #     --dry-run=client -o yaml | kubectl apply -f -
+      - name: Configure Kubernetes to Pull from Private ECR
+        run: |
+          kubectl create secret docker-registry regcred \
+          --docker-server=${{ vars.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com \
+          --docker-username=AWS \
+          --docker-password=$(aws ecr get-login-password --region ap-southeast-1) \
+          --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Deploy to Kubernetes
         run: |
             # Substitute environment variables into all Kubernetes YAML files
             envsubst < ./k8s/configmap.yaml > ./k8s/configmap-substituted.yaml
             envsubst < ./k8s/secret.yaml > ./k8s/secret-substituted.yaml
-            envsubst < ./k8s/aws-secret.yaml > ./k8s/aws-secret-substituted.yaml
             envsubst < ./k8s/deployment.yaml > ./k8s/deployment-substituted.yaml
             envsubst < ./k8s/service.yaml > ./k8s/service-substituted.yaml
             
             # Apply the substituted Kubernetes resources
             kubectl apply -f ./k8s/configmap-substituted.yaml
             kubectl apply -f ./k8s/secret-substituted.yaml
-            kubectl apply -f ./k8s/aws-secret-substituted.yaml
             kubectl apply -f ./k8s/deployment-substituted.yaml
             kubectl apply -f ./k8s/service-substituted.yaml
 
