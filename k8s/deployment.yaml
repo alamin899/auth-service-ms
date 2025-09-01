@@ -22,3 +22,5 @@ spec:
                 name: ${AUTH_MS_NAME}-config
             - secretRef:
                 name: ${AUTH_MS_NAME}-secret
+      imagePullSecrets:
+        - name: regcred
