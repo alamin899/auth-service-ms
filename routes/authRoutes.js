@@ -13,4 +13,8 @@ router.post('/login',loginValidator,validateMiddleware, login);
 router.post('/register',registerValidator,validateMiddleware, register);
 router.get('/verify-token',checkAuthorizationHeader,validateMiddleware, verifyTokenController);
 
+router.get('/test', (req, res) => {
+    res.status(200).json({ message: 'Test route is working!' });
+});
+
 export default router;
