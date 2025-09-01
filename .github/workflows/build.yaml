@@ -25,7 +25,10 @@ jobs:
           echo "CONTAINER_REPO_NAME=${{ vars.CONTAINER_REPO_NAME }}" >> $GITHUB_ENV
           echo "DOCKER_IMAGE_URI=${{vars.DOCKER_IMAGE_URI}}" >> $GITHUB_ENV
           echo "IMAGE_TAG=${{ vars.DOCKER_IMAGE_TAG }}" >> $GITHUB_ENV
-          
+
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+
           echo "CONTAINER_RUNNING_PORT=${{ vars.CONTAINER_RUNNING_PORT }}" >> $GITHUB_ENV
           echo "REPLICA_COUNT=${{ vars.REPLICA_COUNT }}" >> $GITHUB_ENV
 
@@ -85,12 +88,14 @@ jobs:
             # Substitute environment variables into all Kubernetes YAML files
             envsubst < ./k8s/configmap.yaml > ./k8s/configmap-substituted.yaml
             envsubst < ./k8s/secret.yaml > ./k8s/secret-substituted.yaml
+            envsubst < ./k8s/aws-secret.yaml > ./k8s/aws-secret-substituted.yaml
             envsubst < ./k8s/deployment.yaml > ./k8s/deployment-substituted.yaml
             envsubst < ./k8s/service.yaml > ./k8s/service-substituted.yaml
             
             # Apply the substituted Kubernetes resources
             kubectl apply -f ./k8s/configmap-substituted.yaml
             kubectl apply -f ./k8s/secret-substituted.yaml
+            kubectl apply -f ./k8s/aws-secret-substituted.yaml
             kubectl apply -f ./k8s/deployment-substituted.yaml
             kubectl apply -f ./k8s/service-substituted.yaml
 
